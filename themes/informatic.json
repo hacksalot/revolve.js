@@ -1,0 +1,62 @@
+{
+  "name": "informatic",
+  "axes": {
+    "REV24": {
+      "name": "MPH",
+      "pointA": {
+        "angle": 180,
+        "value": 0
+      },
+      "pointB": {
+        "angle": 540,
+        "value": 86400000,
+        "comment": "24 * 60 * 60 * 1000"
+      }
+    }
+  },
+  "layers": {
+    "rim": { "type": "circle", "color": "#121212", "border": { "width": 6, "color": "black" } },
+    "work": { "type": "circle", "color": "#0c52eb", "radius": 250 },
+    "work2": { "type": "sector", "color2": "#0c52eb", "color": "orange", "from": 270, "to": 105, "radius": 250 },
+    "rim2": { "type": "circle", "color": "#121212", "radius": 246 },
+    "minorTicks": { "type": "radial", "content": "ticks", "radius": 250, "width": 2, "length": 10, "color": "darkgray", "layout": 96 },
+    "majorTicks": { "type": "radial", "content": "ticks", "radius": 250, "width": 14, "length": 20, "color": "gray", "layout": "24" },
+    "majorHours": { "type": "radial", "content": "text", "text": "24", "start": 180, "include": [0,6,12,18], "orient": true, "count": 24, "radius": 200, "weight": 300, "size": 50, "color": "#787878", "family": "Oswald, Calibri, Impact, sans-serif" },
+    "minorHours": { "type": "radial", "content": "text", "text": "24", "start": 180, "exclude": [0,6,12,18], "orient": true, "count": 24, "radius": 202, "weight": 300, "size": 30, "color": "#565656", "family": "Oswald, Calibri, Impact, sans-serif" },
+    "minutes": { "type": "radial", "content": "text", "text": "minutes", "orient": true, "radius": 166, "weight": 300, "size": 16, "color": "#9a9a9a", "family": "Oswald, Calibri, Impact, sans-serif" },
+    "minor3": { "type": "radial", "content": "ticks", "radius": 172, "width": 4, "length": 10, "color": "gray", "layout": "minute", "exclude": [0,5,10,15,20,25,30,35,40,45,50,55] },
+    "minor2": { "type": "radial", "content": "ticks", "radius": 158, "width": 4, "length": 5, "color": "#DD2323", "layout": "minute" },
+    "events": { "type": "events", "radius": [150, 79], "width": 10 },
+    "hour": { "type": "arm", "start": 180, "axis": "REV24", "width": 14, "length": 186, "offset": 20, "color": "gray", "shadowColor": "black", "shadow": 2 },
+    "minute": { "type": "arm", "axis": "minutes", "width": 6, "length": 158, "offset": 20, "shadowColor": "black", "shadow": 2 },
+    "second": { "type": "arm", "axis": "seconds", "width": 4, "length": 148, "offset": 14, "color": "#DD2323", "shadowColor": "black", "shadow": 2 },
+    "inner2": { "type": "circle", "color": "#232323", "radius": 3 },
+    "glass": {
+      "type": "circle",
+      "radius": 246,
+      "color": {
+        "extent": [
+          0, -256, 0, 256
+        ],
+        "stops": [
+          {
+            "pos": 0,
+            "color": "#FFFFFF11"
+          },
+          {
+            "pos": 0.5,
+            "color": "#22222244"
+          },
+          {
+            "pos": 0.5,
+            "color": "#22222233"
+          },
+          {
+            "pos": 1,
+            "color": "#FFFFFF11"
+          }
+        ]
+      }
+    }
+  }
+}

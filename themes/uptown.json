@@ -1,0 +1,106 @@
+{
+  "name": "uptown",
+  "layers": {
+    "rim": {
+      "type": "circle",
+      "color": "#fff4ab",
+      "border": {
+        "width": 10,
+        "color": "black"
+      }
+    },
+    "centroid": {
+      "type": "circle",
+      "color": "#fff",
+      "radius": 216,
+      "border": {
+        "width": 1,
+        "color": "#343434"
+      }
+    },
+    "centroid2": {
+      "type": "circle",
+      "color": "beige",
+      "radius": 145,
+      "border": {
+        "width": 1,
+        "color": "#343434"
+      }
+    },
+    "minor": {
+      "type": "radial",
+      "content": "ticks",
+      "radius": 246,
+      "width": 5,
+      "length": 10,
+      "color": "#676767",
+      "layout": "minute"
+    },
+    "major": {
+      "type": "radial",
+      "content": "ticks",
+      "radius": 246,
+      "width": 10,
+      "length": 30,
+      "color": "#454545",
+      "layout": "hour"
+    },
+    "numerals": {
+      "type": "radial",
+      "content": "text",
+      "radius": 175,
+      "orient": true,
+      "weight": 300,
+      "size": 60,
+      "color": "#232323",
+      "text": "roman",
+      "family": "Six Caps, Oswald, Calibri, Impact, sans-serif"
+    },
+    "hour": {
+      "type": "arm",
+      "axis": "hours",
+      "color": "#121212",
+      "width": 6,
+      "length": 120,
+      "offset": 20,
+      "layers": [
+        {
+          "type": "rect",
+          "bounds": [ -3, -145, 6, 165 ]
+        },
+        {
+          "type": "rect",
+          "bounds": [ -7, -145, 14, 40 ]
+        },
+        {
+          "type": "rect",
+          "bounds": [ -9, 20, 18, 40 ]
+        }
+      ]
+    },
+    "minute": {
+      "type": "arm",
+      "axis": "minutes",
+      "color": "#121212",
+      "width": 5,
+      "length": 216,
+      "offset": 20,
+      "shadowColor": "black",
+      "shadow": 2,
+      "layers": [
+        {
+          "type": "rect",
+          "bounds": [ -2, -216, 4, 266 ]
+        },
+        {
+          "type": "rect",
+          "bounds": [ -4, -216, 8, 30 ]
+        },
+        {
+          "type": "rect",
+          "bounds": [ -5, 20, 10, 40 ]
+        }
+      ]
+    }
+  }
+}
