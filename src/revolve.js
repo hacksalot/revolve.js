@@ -525,10 +525,14 @@ function _p( val, o ) {
 }
 
 function _handleLoad( theme, cb ) {
-  if( isString(theme) )
-    return _loadThemeJSON( theme, ret => { cb( JSON.parse( ret ), ret ); });
-  else
+  if( isString(theme) ) {
+    return REVOLVE.themes ?
+      cb( REVOLVE.themes[theme], JSON.stringify(REVOLVE.themes[theme]) ) :
+      _loadThemeJSON( theme, ret => { cb( JSON.parse( ret ), ret ); });
+  }
+  else {
     return cb( theme, JSON.stringify(theme) );
+  }
 }
 
 // Set up a 'ready' handler without using jQuery or introducing dependencies.
@@ -606,7 +610,3 @@ function extend() {
   // Return the modified object
   return target;
 }
-
-// Finish the UMD wrapper we began at the top of the file.
-return REVOLVE; // Return the module object
-}));
