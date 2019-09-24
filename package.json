@@ -1,6 +1,6 @@
 {
   "name": "revolve.js",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A precision analog clock-and-gauge control in standard JavaScript.",
   "main": "dist/js/revolve.js",
   "homepage": "https://revolvejs.org",
