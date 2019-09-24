@@ -1,0 +1,79 @@
+{
+  "name": "office",
+  "layers": {
+    "rim": {
+      "type": "circle",
+      "color": "beige",
+      "border": {
+        "width": 10,
+        "color": "black"
+      }
+    },
+    "minor": {
+      "type": "radial",
+      "content": "ticks",
+      "radius": 246,
+      "width": 5,
+      "length": 10,
+      "color": "#232323",
+      "layout": "minute"
+    },
+    "major": {
+      "type": "radial",
+      "content": "ticks",
+      "radius": 246,
+      "width": 15,
+      "length": 30,
+      "color": "#232323",
+      "layout": "hour"
+    },
+    "numerals": {
+      "type": "radial",
+      "content": "text",
+      "text": "12",
+      "radius": 190,
+      "weight": 300,
+      "size": 40,
+      "color": "black",
+      "family": "Impact, Calibri, 'Segoe UI', Helvetica"
+    },
+    "label": {
+      "type": "text",
+      "pos": [0,56],
+      "value": "$label",
+      "family": "Calibri",
+      "weight": 400,
+      "size": 18,
+      "color": "black",
+      "align": "center"
+    },
+    "hour": {
+      "type": "arm",
+      "axis": "HOURS",
+      "width": 20,
+      "length": 120,
+      "offset": 20,
+      "shadowColor": "black",
+      "shadow": 2
+    },
+    "minute": {
+      "type": "arm",
+      "axis": "MINUTES",
+      "width": 15,
+      "length": 166,
+      "offset": 20,
+      "shadowColor": "black",
+      "shadow": 2
+    },
+    "second": {
+      "type": "arm",
+      "axis": "SECONDS",
+      "width": 5,
+      "length": 236,
+      "offset": 20,
+      "color": "#DD2323",
+      "shadowColor": "black",
+      "shadow": 2
+    }
+  }
+}

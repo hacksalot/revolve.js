@@ -1,0 +1,24 @@
+# Autodetect text files and normalize their line endings
+* text=auto
+
+#
+# The above will handle all files NOT found below
+#
+
+# These files are text and should be normalized (Convert crlf => lf)
+*.md text
+*.markdown text
+*.css text
+*.js text
+*.html text
+
+# These files are binary and should be left untouched
+# (binary is a macro for -text -diff)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+
+# These files are text and should be normalized (Convert crlf => lf)
+.gitattributes text
+.gitignore text
