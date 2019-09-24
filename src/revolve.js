@@ -540,8 +540,8 @@ function _handleLoad( theme, cb ) {
 if( typeof document !== 'undefined' ) {
   let _onDomLoaded = () => { // [^1]
     document.querySelectorAll('canvas[data-revolve]').forEach( el => {
-      revolveAPI[ el.dataset.revolve || 'clock']( el.getContext('2d'), {
-        theme: el.dataset.theme, paused: el.dataset.paused === 'true'
+      REVOLVE[ el.dataset.revolve || 'clock']( el.getContext('2d'), {
+        theme: el.dataset.theme || 'office', paused: el.dataset.paused === 'true'
       });
     });
   };
