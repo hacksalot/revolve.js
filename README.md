@@ -7,7 +7,7 @@ Revolve.js
 
 ## Demo
 
-Visit the [Revolve.js website](https://revolvejs.org) for live demos.
+Visit the [Revolve.js website](https://revolvejs.org) or check out the [`/examples`][ex] folder for code examples.
 
 
 ## Installation
@@ -26,6 +26,8 @@ Or download the `revolve.js` file directly.
 
 
 ## Use
+
+*See the [`/examples`][ex] folder for live code examples.*
 
 ### In HTML
 
@@ -66,6 +68,7 @@ Revolve.js ships with over a dozen predefined themes and the ability to define y
 - [`simple`](https://revolvejs.org/themes/simple)
 - [`speedometer`](https://revolvejs.org/themes/speedometer)
 - [`stopwatch`](https://revolvejs.org/themes/stopwatch)
+- [`unitless`](https://revolvejs.org/themes/unitless)
 - [`uptown`](https://revolvejs.org/themes/uptown)
 
 To use a theme, specify the theme name in the options object...
@@ -103,6 +106,7 @@ Every Revolve.js clock and gauge is driven by an editable JSON theme description
 
 See [CHANGELOG.md](CHANGELOG.md) for full release info.
 
+- v1.1.0 Add `unitless` theme & GitHub Package support.
 - v1.0.0 Initial public release.
 
 
@@ -111,3 +115,5 @@ See [CHANGELOG.md](CHANGELOG.md) for full release info.
 The Revolve.js library is licensed under the terms of the MIT license. Go crazy. See [LICENSE.md](LICENSE.md) for details.
 
 *Copyright (c) 2019 | James M. Devlin | All rights reserved*
+
+[ex]: examples/
