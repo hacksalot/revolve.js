@@ -1,7 +1,7 @@
 /**
 The Revolve.js library
 @file revolve.js
-@version 1.0.0
+@version 1.1.0
 @copyright Copyright (c) 2019 | James M. Devlin | https://revolvejs.org
 */
 //------------------------------------------------------------------------------
@@ -17,8 +17,6 @@ The Revolve.js library
     root.Revolve = factory( root.RevolveThemes );
   }
 }(typeof self !== 'undefined' ? self : this, function (RevolveThemes) {
-// Okay, UMD wrapper nonsense concluded. Commence with Revolve.js.
-//------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
 // The one-and-only Revolve.js module object.
@@ -26,7 +24,7 @@ The Revolve.js library
 let REVOLVE = {
   clock: (ctx, opt) => {
     let c = new AnalogClock( ctx, opt );
-    _handleLoad( opt.theme, ( themeObj, themeJson ) => {
+    _handleLoad( opt.theme || 'classic', ( themeObj, themeJson ) => {
       c.theme = themeObj;
       c.init();
     });
@@ -34,7 +32,7 @@ let REVOLVE = {
   },
   gauge: (ctx, opt) => {
     let g = new RadialGauge( ctx, opt );
-    _handleLoad( opt.theme, ( themeObj, themeJson ) => {
+    _handleLoad( opt.theme || 'unitless', ( themeObj, themeJson ) => {
       g.theme = themeObj;
       g.init();
     });
@@ -56,7 +54,7 @@ class RadialGauge
     // Set up default options
     let defOpts = {
       logicalSize: 512,
-      label: 'Revolve.js | v1.0.0',
+      label: 'Revolve.js | v1.1.0',
       mode: 'discrete',
       center: [0,0],
       radius: Math.min( ctx.canvas.width, ctx.canvas.height ) / 2.0
@@ -525,23 +523,28 @@ function _p( val, o ) {
 }
 
 function _handleLoad( theme, cb ) {
-  if( isString(theme) )
-    return _loadThemeJSON( theme, ret => { cb( JSON.parse( ret ), ret ); });
-  else
+  if( isString(theme) ) {
+    return REVOLVE.themes ?
+      cb( REVOLVE.themes[theme], JSON.stringify(REVOLVE.themes[theme]) ) :
+      _loadThemeJSON( theme, ret => { cb( JSON.parse( ret ), ret ); });
+  }
+  else {
     return cb( theme, JSON.stringify(theme) );
+  }
 }
 
-// Set up a 'ready' handler without using jQuery or introducing dependencies.
+// Set up a document ready handler to register <canvas> elements with the
+// data-revolve attribute. Without using jQuery or introducing dependencies.
 // https://www.sitepoint.com/jquery-document-ready-plain-javascript/
 if( typeof document !== 'undefined' ) {
-  let _onDomLoaded = () => { // [^1]
+  let _onDomLoaded = () => {
     document.querySelectorAll('canvas[data-revolve]').forEach( el => {
-      revolveAPI[ el.dataset.revolve || 'clock']( el.getContext('2d'), {
-        theme: el.dataset.theme, paused: el.dataset.paused === 'true'
-      });
+      REVOLVE[ el.dataset.revolve ]( // call REVOLVE.clock or REVOLVE.gauge
+        el.getContext('2d'),
+        extend( true, { }, el.dataset ) // collapse data-* onto options
+      );
     });
   };
-  // Add the event listener or call it directly
   if ( document.readyState === "complete" || (document.readyState !== "loading"
        && !document.documentElement.doScroll)) { _onDomLoaded(); }
   else { document.addEventListener("DOMContentLoaded", _onDomLoaded); }
@@ -606,7 +609,3 @@ function extend() {
   // Return the modified object
   return target;
 }
-
-// Finish the UMD wrapper we began at the top of the file.
-return REVOLVE; // Return the module object
-}));

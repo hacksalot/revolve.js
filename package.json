@@ -1,6 +1,6 @@
 {
   "name": "revolve.js",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A precision analog clock-and-gauge control in standard JavaScript.",
   "main": "dist/js/revolve.js",
   "homepage": "https://revolvejs.org",
@@ -10,8 +10,13 @@
   "scripts": {
     "postinstall": "gulp"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "devDependencies": {
     "gulp": "^4.0.2",
+    "gulp-append-prepend": "^1.0.8",
+    "gulp-jsoncombine": "^1.0.4",
     "gulp-minify": "^3.1.0",
     "gulp-rename": "^1.4.0",
     "gulp-strip-comments": "^2.5.2"
