@@ -26,7 +26,7 @@ The Revolve.js library
 let REVOLVE = {
   clock: (ctx, opt) => {
     let c = new AnalogClock( ctx, opt );
-    _handleLoad( opt.theme, ( themeObj, themeJson ) => {
+    _handleLoad( opt.theme || 'classic', ( themeObj, themeJson ) => {
       c.theme = themeObj;
       c.init();
     });
@@ -34,7 +34,7 @@ let REVOLVE = {
   },
   gauge: (ctx, opt) => {
     let g = new RadialGauge( ctx, opt );
-    _handleLoad( opt.theme, ( themeObj, themeJson ) => {
+    _handleLoad( opt.theme || 'unitless', ( themeObj, themeJson ) => {
       g.theme = themeObj;
       g.init();
     });
