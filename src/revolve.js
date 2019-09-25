@@ -17,8 +17,6 @@ The Revolve.js library
     root.Revolve = factory( root.RevolveThemes );
   }
 }(typeof self !== 'undefined' ? self : this, function (RevolveThemes) {
-// Okay, UMD wrapper nonsense concluded. Commence with Revolve.js.
-//------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
 // The one-and-only Revolve.js module object.
@@ -535,10 +533,11 @@ function _handleLoad( theme, cb ) {
   }
 }
 
-// Set up a 'ready' handler without using jQuery or introducing dependencies.
+// Set up a document ready handler to register <canvas> elements with the
+// data-revolve attribute. Without using jQuery or introducing dependencies.
 // https://www.sitepoint.com/jquery-document-ready-plain-javascript/
 if( typeof document !== 'undefined' ) {
-  let _onDomLoaded = () => { // [^1]
+  let _onDomLoaded = () => {
     document.querySelectorAll('canvas[data-revolve]').forEach( el => {
       REVOLVE[ el.dataset.revolve ]( // call REVOLVE.clock or REVOLVE.gauge
         el.getContext('2d'),
@@ -546,7 +545,6 @@ if( typeof document !== 'undefined' ) {
       );
     });
   };
-  // Add the event listener or call it directly
   if ( document.readyState === "complete" || (document.readyState !== "loading"
        && !document.documentElement.doScroll)) { _onDomLoaded(); }
   else { document.addEventListener("DOMContentLoaded", _onDomLoaded); }
