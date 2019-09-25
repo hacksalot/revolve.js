@@ -11,7 +11,7 @@
 let REVOLVE = {
   clock: (ctx, opt) => {
     let c = new AnalogClock( ctx, opt );
-    _handleLoad( opt.theme, ( themeObj, themeJson ) => {
+    _handleLoad( opt.theme || 'classic', ( themeObj, themeJson ) => {
       c.theme = themeObj;
       c.init();
     });
@@ -19,7 +19,7 @@ let REVOLVE = {
   },
   gauge: (ctx, opt) => {
     let g = new RadialGauge( ctx, opt );
-    _handleLoad( opt.theme, ( themeObj, themeJson ) => {
+    _handleLoad( opt.theme || 'unitless', ( themeObj, themeJson ) => {
       g.theme = themeObj;
       g.init();
     });
@@ -34,7 +34,7 @@ class RadialGauge
     this.ctx = ctx;
     let defOpts = {
       logicalSize: 512,
-      label: 'Revolve.js | v1.0.0',
+      label: 'Revolve.js | v1.1.0',
       mode: 'discrete',
       center: [0,0],
       radius: Math.min( ctx.canvas.width, ctx.canvas.height ) / 2.0
@@ -464,18 +464,23 @@ function _p( val, o ) {
 }
 
 function _handleLoad( theme, cb ) {
-  if( isString(theme) )
-    return _loadThemeJSON( theme, ret => { cb( JSON.parse( ret ), ret ); });
-  else
+  if( isString(theme) ) {
+    return REVOLVE.themes ?
+      cb( REVOLVE.themes[theme], JSON.stringify(REVOLVE.themes[theme]) ) :
+      _loadThemeJSON( theme, ret => { cb( JSON.parse( ret ), ret ); });
+  }
+  else {
     return cb( theme, JSON.stringify(theme) );
+  }
 }
 
 if( typeof document !== 'undefined' ) {
-  let _onDomLoaded = () => { 
+  let _onDomLoaded = () => {
     document.querySelectorAll('canvas[data-revolve]').forEach( el => {
-      revolveAPI[ el.dataset.revolve || 'clock']( el.getContext('2d'), {
-        theme: el.dataset.theme, paused: el.dataset.paused === 'true'
-      });
+      REVOLVE[ el.dataset.revolve ]( 
+        el.getContext('2d'),
+        extend( true, { }, el.dataset ) 
+      );
     });
   };
   if ( document.readyState === "complete" || (document.readyState !== "loading"

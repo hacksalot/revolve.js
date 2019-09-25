@@ -1,0 +1,50 @@
+{
+  "name": "unitless",
+  "axes": {
+    "TEN": {
+      "name": "TEN",
+      "pointA": {
+        "angle": 225,
+        "value": 0
+      },
+      "pointB": {
+        "angle": 135,
+        "value": 10
+      }
+    }
+  },
+  "layers": {
+    "major_ticks": {
+      "type": "radial",
+      "content": "ticks",
+      "layout": "hour",
+      "color": "#343434",
+      "width": 8,
+      "degrees": 27,
+      "length": 40,
+      "include": [0,1,2,3,4,5,6,7,8,9,10],
+      "start": 225
+    },
+    "major_circle": {
+      "type": "arc",
+      "radius": 226,
+      "border": {
+        "width": 10,
+        "color": "#343434"
+      },
+      "start": 225,
+      "degrees": 135
+    },
+    "pointer": {
+      "type": "arm",
+      "axis": "TEN",
+      "color": "#DD2323",
+      "layers": [ {
+        "type": "path",
+        "points": [ { "x": -2, "y": -212 }, { "x": -5, "y": 65 },
+                    { "x": 5, "y": 65 }, { "x": 2, "y": -212 } ]
+      }]
+    },
+    "pin": { "type": "circle", "radius": 26, "color": "white", "border": { "color": "#DD2323", "width": 6 } }
+  }
+}

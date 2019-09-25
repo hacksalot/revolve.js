@@ -38,7 +38,8 @@
           };
           let func = (can.dataset.theme === 'speedometer' ||
                       can.dataset.theme === 'dartboard' ||
-                      can.dataset.theme === 'pressure') ? 'gauge' : 'clock';
+                      can.dataset.theme === 'pressure' ||
+                      can.dataset.theme === 'unitless' ) ? 'gauge' : 'clock';
           Revolve[ func ]( can.getContext("2d"), opt );
         });
       }
@@ -161,6 +162,15 @@
       </div>
     </section>
     
+    <section id="theme-unitless">
+      <div>
+        <a href="themes/unitless">
+        <h2>Unitless</h2>
+        <canvas width="256" height="256" data-theme="unitless" data-value="6"></canvas>
+        </a>
+      </div>
+    </section>
+    
     <section id="theme-uptown">
       <div>
         <a href="themes/uptown">
@@ -174,7 +184,7 @@
     <footer>
       <a href="https://github.com/hacksalot/revolve.js">Revolve.js</a>
       by <a href="https://github.com/hacksalot">Hacksalot</a> |
-      <span><a href="https://github.com/hacksalot/revolve.js/releases/tag/v1.0.0">Version 1.0.0</a></span>
+      <span><a href="https://github.com/hacksalot/revolve.js/releases/tag/v1.1.0">Version 1.1.0</a></span>
     </footer>
   </main>
 </body>

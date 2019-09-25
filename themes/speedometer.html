@@ -66,7 +66,7 @@
     if( ds.theme === 'stopwatch' ) { opt.paused = true; }
     if( !can.ctl ) { // Path A: Initialize the clock or gauge for the 1st time
       if( ds.theme === 'speedometer' || ds.theme === 'dartboard' ||
-          ds.theme === 'pressure' ) {
+          ds.theme === 'pressure' || ds.theme === 'unitless' ) {
         can.ctl = Revolve.gauge( can.getContext('2d'), opt );
       }
       else {
@@ -108,7 +108,7 @@
   <main>
     <header>
       <h1>Theme: Speedometer</h1>
-      <p><a href="/">Revolve.js v1.0.0</a></p>
+      <p><a href="/">Revolve.js v1.1.0</a></p>
       <p><p>A 0-to-150 speedometer in 270 degrees.</p>
 </p>
     </header>
@@ -132,7 +132,7 @@
     <footer>
       <a href="https://github.com/hacksalot/revolve.js">Revolve.js</a>
       by <a href="https://github.com/hacksalot">Hacksalot</a> |
-      <span><a href="https://github.com/hacksalot/revolve.js/releases/tag/v1.0.0">Version 1.0.0</a></span> | Copyright (c) 2019
+      <span><a href="https://github.com/hacksalot/revolve.js/releases/tag/v1.1.0">Version 1.1.0</a></span> | Copyright (c) 2019
     </footer>
   </main>
 </body>
