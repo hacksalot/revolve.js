@@ -540,9 +540,10 @@ function _handleLoad( theme, cb ) {
 if( typeof document !== 'undefined' ) {
   let _onDomLoaded = () => { // [^1]
     document.querySelectorAll('canvas[data-revolve]').forEach( el => {
-      REVOLVE[ el.dataset.revolve || 'clock']( el.getContext('2d'), {
-        theme: el.dataset.theme || 'office', paused: el.dataset.paused === 'true'
-      });
+      REVOLVE[ el.dataset.revolve ]( // call REVOLVE.clock or REVOLVE.gauge
+        el.getContext('2d'),
+        extend( true, { }, el.dataset ) // collapse data-* onto options
+      );
     });
   };
   // Add the event listener or call it directly
