@@ -7,12 +7,6 @@
   "repository": "https://github.com/hacksalot/revolve.js.git",
   "author": "James M. Devlin <hacksalot@indevious.com> (https://deskchained.com)",
   "license": "MIT",
-  "scripts": {
-    "postinstall": "gulp"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  },
   "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-append-prepend": "^1.0.8",
