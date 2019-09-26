@@ -4,7 +4,7 @@
   "description": "A precision analog clock-and-gauge control in standard JavaScript.",
   "main": "src/revolve.js",
   "homepage": "https://revolvejs.org",
-  "repository": "https://github.com/hacksalot/revolve.js",
+  "repository": "https://github.com/hacksalot/revolve.js.git",
   "author": "James M. Devlin <hacksalot@indevious.com> (https://deskchained.com)",
   "license": "MIT",
   "scripts": {
