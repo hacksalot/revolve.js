@@ -25,7 +25,10 @@ function copyThemes(cb) {
     .pipe( gap.prependText( 'let themes = ' ) )
     .pipe( gap.prependFile( './src/revolve-themes-prefix.js' ))
     .pipe( gap.appendText( ';\r\nreturn themes;\r\n}));' ))
-    .pipe( dest( './dist/' ));
+    .pipe( dest( './dist/' ))
+    .pipe( minify({ ext:{ src:'.js', min:'.min.js' }}) )
+    .pipe( dest( './dist/' ))
+}
 }
 
 // - Strip comments from revolve.js, producing revolve.quiet.js
