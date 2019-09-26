@@ -13,12 +13,11 @@ const strip = require('gulp-strip-comments');
 const rename = require('gulp-rename');
 const jsoncombine = require('gulp-jsoncombine');
 const gap = require('gulp-append-prepend');
+const jsonminify = require('gulp-jsonminify');
 
-// - Copy individual theme files to dist/js/themes
-// - Merge individual theme files to dist/js/revolve-themes.js
+// - Merge individual theme files to dist/revolve-themes[.min].js
 function copyThemes(cb) {
   return src( './src/themes/*.json' )
-    .pipe( dest( './dist/themes/' ))
     .pipe( jsoncombine( 'revolve-themes.js', (data, meta) => {
       return new Buffer( JSON.stringify(data, null, '  ' ) );
     }))
@@ -29,6 +28,12 @@ function copyThemes(cb) {
     .pipe( minify({ ext:{ src:'.js', min:'.min.js' }}) )
     .pipe( dest( './dist/' ))
 }
+
+// - Copy individual theme JSON to output with minification
+function minifyThemes(cb) {
+  return src( './src/themes/*.json' )
+    .pipe( jsonminify() )
+    .pipe( dest( './dist/themes/' ));
 }
 
 // - Strip comments from revolve.js, producing revolve.quiet.js
@@ -72,4 +77,4 @@ function packaged(cb) {
     .pipe( dest('./dist/') );
 }
 
-exports.default = series( copyThemes, standalone, packaged );
+exports.default = series( copyThemes, minifyThemes, standalone, packaged );
