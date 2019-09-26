@@ -31,7 +31,8 @@ function copyThemes(cb) {
 // - Strip comments from revolve.js, producing revolve.quiet.js
 // - Minify after comments are stripped, producing revolve.min.js
 function standalone() {
-  return src( './src/revolve.js' )
+  return src( './src/index.js' )
+    .pipe( rename({ basename: 'revolve' }) )
     .pipe( dest('./dist/js') )
     .pipe( strip() )
     .pipe( rename({ suffix: '.quiet' }) )
@@ -47,8 +48,8 @@ function standalone() {
 
 // Assemble the packaged version of Revolve.js
 function packaged(cb) {
-  return src('./src/revolve.js')
-    .pipe( rename({ suffix: '.pkgd' }) )
+  return src('./src/index.js')
+    .pipe( rename({ basename: 'revolve', suffix: '.pkgd' }) )
     .pipe( gap.prependFile( './dist/js/revolve-themes.js' ))
     // .pipe( gap.appendF( 'REVOLVE.themes = ' ))
     // .pipe( gap.appendText( 'REVOLVE.themes = ' ))

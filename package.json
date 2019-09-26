@@ -2,7 +2,7 @@
   "name": "revolve.js",
   "version": "1.1.1",
   "description": "A precision analog clock-and-gauge control in standard JavaScript.",
-  "main": "src/revolve.js",
+  "main": "src/index.js",
   "homepage": "https://revolvejs.org",
   "repository": "https://github.com/hacksalot/revolve.js.git",
   "author": "James M. Devlin <hacksalot@indevious.com> (https://deskchained.com)",
