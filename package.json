@@ -1,22 +1,17 @@
 {
   "name": "revolve.js",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A precision analog clock-and-gauge control in standard JavaScript.",
-  "main": "dist/js/revolve.js",
+  "main": "src/index.js",
   "homepage": "https://revolvejs.org",
-  "repository": "https://github.com/hacksalot/revolve.js",
+  "repository": "https://github.com/hacksalot/revolve.js.git",
   "author": "James M. Devlin <hacksalot@indevious.com> (https://deskchained.com)",
   "license": "MIT",
-  "scripts": {
-    "postinstall": "gulp"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  },
   "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-append-prepend": "^1.0.8",
     "gulp-jsoncombine": "^1.0.4",
+    "gulp-jsonminify": "^1.1.0",
     "gulp-minify": "^3.1.0",
     "gulp-rename": "^1.4.0",
     "gulp-strip-comments": "^2.5.2"

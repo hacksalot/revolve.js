@@ -106,6 +106,7 @@ Every Revolve.js clock and gauge is driven by an editable JSON theme description
 
 See [CHANGELOG.md](CHANGELOG.md) for full release info.
 
+- v1.2.0 Improve build packaging.
 - v1.1.0 Add `unitless` theme & GitHub Package support.
 - v1.0.0 Initial public release.
 

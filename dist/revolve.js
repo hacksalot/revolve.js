@@ -1,7 +1,7 @@
 /**
 The Revolve.js library
 @file revolve.js
-@version 1.1.0
+@version 1.2.0
 @copyright Copyright (c) 2019 | James M. Devlin | https://revolvejs.org
 */
 //------------------------------------------------------------------------------
@@ -37,7 +37,8 @@ let REVOLVE = {
       g.init();
     });
     return g;
-  }
+  },
+  themes: RevolveThemes
 };
 
 //------------------------------------------------------------------------------
@@ -54,7 +55,7 @@ class RadialGauge
     // Set up default options
     let defOpts = {
       logicalSize: 512,
-      label: 'Revolve.js | v1.1.0',
+      label: 'Revolve.js | v1.2.0',
       mode: 'discrete',
       center: [0,0],
       radius: Math.min( ctx.canvas.width, ctx.canvas.height ) / 2.0
@@ -609,3 +610,6 @@ function extend() {
   // Return the modified object
   return target;
 }
+
+return REVOLVE; // Return the module object
+}));
