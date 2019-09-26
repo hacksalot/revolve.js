@@ -18,14 +18,14 @@ const gap = require('gulp-append-prepend');
 // - Merge individual theme files to dist/js/revolve-themes.js
 function copyThemes(cb) {
   return src( './src/themes/*.json' )
-    .pipe( dest( './dist/js/themes/' ))
+    .pipe( dest( './dist/themes/' ))
     .pipe( jsoncombine( 'revolve-themes.js', (data, meta) => {
       return new Buffer( JSON.stringify(data, null, '  ' ) );
     }))
     .pipe( gap.prependText( 'let themes = ' ) )
     .pipe( gap.prependFile( './src/revolve-themes-prefix.js' ))
     .pipe( gap.appendText( ';\r\nreturn themes;\r\n}));' ))
-    .pipe( dest( './dist/js/' ));
+    .pipe( dest( './dist/' ));
 }
 
 // - Strip comments from revolve.js, producing revolve.quiet.js
@@ -33,40 +33,40 @@ function copyThemes(cb) {
 function standalone() {
   return src( './src/index.js' )
     .pipe( rename({ basename: 'revolve' }) )
-    .pipe( dest('./dist/js') )
+    .pipe( dest('./dist/') )
     .pipe( strip() )
     .pipe( rename({ suffix: '.quiet' }) )
-    .pipe( dest('./dist/js') )
+    .pipe( dest('./dist/') )
     .pipe( rename( (path) => {
       if( path.basename.endsWith('.quiet') )
         path.basename = path.basename.slice(0,-6);
       return path;
     }))
     .pipe( minify({ ext:{ src:'.quiet.js', min:'.min.js' }}) )
-    .pipe( dest('./dist/js/') );
+    .pipe( dest('./dist/') );
 }
 
 // Assemble the packaged version of Revolve.js
 function packaged(cb) {
   return src('./src/index.js')
     .pipe( rename({ basename: 'revolve', suffix: '.pkgd' }) )
-    .pipe( gap.prependFile( './dist/js/revolve-themes.js' ))
+    .pipe( gap.prependFile( './dist/revolve-themes.js' ))
     // .pipe( gap.appendF( 'REVOLVE.themes = ' ))
     // .pipe( gap.appendText( 'REVOLVE.themes = ' ))
     // .pipe( gap.appendFile( './dist/js/themes/all-themes.json' ))
     // .pipe( gap.appendText( ';' ))
     // .pipe( gap.appendText( suffix ))
-    .pipe( dest('./dist/js/') )
+    .pipe( dest('./dist/') )
     .pipe( strip() )
     .pipe( rename({ suffix: '.quiet' }) )
-    .pipe( dest('./dist/js') )
+    .pipe( dest('./dist/') )
     .pipe( rename( (path) => {
       if( path.basename.endsWith('.quiet') )
         path.basename = path.basename.slice(0,-6);
         return path;
       }))
     .pipe( minify({ ext:{ src:'.quiet.js', min:'.min.js' }}) )
-    .pipe( dest('./dist/js/') );
+    .pipe( dest('./dist/') );
 }
 
 exports.default = series( copyThemes, standalone, packaged );
