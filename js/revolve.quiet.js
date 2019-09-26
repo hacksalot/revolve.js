@@ -24,7 +24,8 @@ let REVOLVE = {
       g.init();
     });
     return g;
-  }
+  },
+  themes: RevolveThemes
 };
 
 class RadialGauge
@@ -34,7 +35,7 @@ class RadialGauge
     this.ctx = ctx;
     let defOpts = {
       logicalSize: 512,
-      label: 'Revolve.js | v1.1.0',
+      label: 'Revolve.js | v1.2.0',
       mode: 'discrete',
       center: [0,0],
       radius: Math.min( ctx.canvas.width, ctx.canvas.height ) / 2.0
