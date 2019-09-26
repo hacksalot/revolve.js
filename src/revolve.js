@@ -37,7 +37,8 @@ let REVOLVE = {
       g.init();
     });
     return g;
-  }
+  },
+  themes: RevolveThemes
 };
 
 //------------------------------------------------------------------------------
@@ -609,3 +610,6 @@ function extend() {
   // Return the modified object
   return target;
 }
+
+return REVOLVE; // Return the module object
+}));

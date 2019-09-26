@@ -13,29 +13,26 @@ const strip = require('gulp-strip-comments');
 const rename = require('gulp-rename');
 const jsoncombine = require('gulp-jsoncombine');
 const gap = require('gulp-append-prepend');
-let suffix = "\r\n// Finish the UMD wrapper we began at the top of the file." +
-             "\r\nreturn REVOLVE; // Return the module object\r\n}));";
 
-// Copy and merge theme files
+// - Copy individual theme files to dist/js/themes
+// - Merge individual theme files to dist/js/revolve-themes.js
 function copyThemes(cb) {
-  return src('./src/themes/*.json')
-    .pipe( dest('./dist/js/themes/') )
-    .pipe( jsoncombine( 'all-themes.json', (data, meta) => {
+  return src( './src/themes/*.json' )
+    .pipe( dest( './dist/js/themes/' ))
+    .pipe( jsoncombine( 'revolve-themes.js', (data, meta) => {
       return new Buffer( JSON.stringify(data, null, '  ' ) );
     }))
-    .pipe( dest('./dist/js/themes/') );
+    .pipe( gap.prependText( 'let themes = ' ) )
+    .pipe( gap.prependFile( './src/revolve-themes-prefix.js' ))
+    .pipe( gap.appendText( ';\r\nreturn themes;\r\n}));' ))
+    .pipe( dest( './dist/js/' ));
 }
 
-// Assemble the standalone version of Revolve.js
-function assemble(cb) {
-  return src('./src/revolve.js')
-    .pipe( gap.appendText(suffix) )
-    .pipe( dest('./dist/js') );
-}
-
-// Strip and minify the standalone version of Revolve.js
+// - Strip comments from revolve.js, producing revolve.quiet.js
+// - Minify after comments are stripped, producing revolve.min.js
 function standalone() {
-  return src( './dist/js/revolve.js' )
+  return src( './src/revolve.js' )
+    .pipe( dest('./dist/js') )
     .pipe( strip() )
     .pipe( rename({ suffix: '.quiet' }) )
     .pipe( dest('./dist/js') )
@@ -52,10 +49,12 @@ function standalone() {
 function packaged(cb) {
   return src('./src/revolve.js')
     .pipe( rename({ suffix: '.pkgd' }) )
-    .pipe( gap.appendText( 'REVOLVE.themes = ' ))
-    .pipe( gap.appendFile( './dist/js/themes/all-themes.json' ))
-    .pipe( gap.appendText( ';' ))
-    .pipe( gap.appendText( suffix ))
+    .pipe( gap.prependFile( './dist/js/revolve-themes.js' ))
+    // .pipe( gap.appendF( 'REVOLVE.themes = ' ))
+    // .pipe( gap.appendText( 'REVOLVE.themes = ' ))
+    // .pipe( gap.appendFile( './dist/js/themes/all-themes.json' ))
+    // .pipe( gap.appendText( ';' ))
+    // .pipe( gap.appendText( suffix ))
     .pipe( dest('./dist/js/') )
     .pipe( strip() )
     .pipe( rename({ suffix: '.quiet' }) )
@@ -69,4 +68,4 @@ function packaged(cb) {
     .pipe( dest('./dist/js/') );
 }
 
-exports.default = series( copyThemes, assemble, standalone, packaged );
+exports.default = series( copyThemes, standalone, packaged );
