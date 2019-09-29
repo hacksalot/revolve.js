@@ -436,6 +436,13 @@ function _drawRadialText(n,c,o,l) {
   let p = _numeralPosition( n, o, l );
   let txt = fnText(n, l);
   let metrics = c.measureText( txt );
+  if( l.background ) {
+    c.fillStyle = l.background;
+    c.fillRect( p[0] - (metrics.width/2),
+                (p[1] + _p(l.size / 3, o)) - _p(l.size, o),
+                metrics.width, _p(l.size + 2, o) );
+    c.fillStyle = l.color;
+  }
   c.fillText( txt, p[0] - (metrics.width/2), p[1] + _p(l.size / 3, o));
 }
 
