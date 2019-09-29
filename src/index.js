@@ -254,7 +254,7 @@ class CanvasRenderer
     _resetContext(ctx,ctl,lay);
     let timeRotation = 0;
     let safeCount = _getRadialCount(lay);
-    let degreesPer = lay.degrees || (360.0 / safeCount);
+    let degreesPer = (lay.degrees || lay.radians) || (360.0 / safeCount);
     for( let n = 0; n < safeCount; n++ ) {
       if( (lay.exclude && lay.exclude.includes(n) ) ||
           (lay.include && !lay.include.includes(n) ) )
@@ -263,7 +263,8 @@ class CanvasRenderer
       ctx.translate( ctl.radius, ctl.radius );
       if( lay.orient || (lay.content !== "text") ) {
         let rotAngle = (n * degreesPer) + (lay.start || 0) + timeRotation;
-        ctx.rotate( TO_RADIANS * rotAngle );
+        let rotRadians = lay.radians ? n * lay.radians : TO_RADIANS * rotAngle;
+        ctx.rotate( rotRadians );
       }
       if( lay.content === 'text' ) _drawRadialText(n,ctx,ctl,lay);
       else if( lay.content === 'ticks' ) _drawRadialTick(n,ctx,ctl,lay);
