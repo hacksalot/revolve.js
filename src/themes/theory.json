@@ -105,7 +105,7 @@
       "color": "black",
       "width": 1,
       "radius": 188,
-      "length": 16,
+      "length": 10,
       "exclude": [0,2,4,6,8,10,12,14,16,18,20,22,24]
     },
     "hour24_circle": {
@@ -116,6 +116,20 @@
         "color": "black"
       }
     },
+    "hour24_numerals": {
+      "orient": true,
+      "radius": 168,
+      "type": "radial",
+      "content": "text",
+      "weight": 300,
+      "size": 14,
+      "color": "#565656",
+      "family": "Oswald, Calibri, Impact, sans-serif",
+      "layout": "24",
+      "degrees": 15,
+      "text": "NN",
+      "background": "white"
+    },
 
     "hour_ticks": {
       "type": "radial",
@@ -124,7 +138,7 @@
       "color": "black",
       "width": 1,
       "radius": 154,
-      "length": 16
+      "length": 10
     },
     "hour_circle": {
       "type": "circle",
@@ -133,6 +147,17 @@
         "width": 1,
         "color": "black"
       }
+    },
+    "hour_numerals": {
+      "orient": true,
+      "radius": 134,
+      "type": "radial",
+      "content": "text",
+      "weight": 300,
+      "size": 14,
+      "color": "#565656",
+      "family": "Oswald, Calibri, Impact, sans-serif",
+      "text": "12"
     },
 
     "radian_ticks": {
@@ -143,7 +168,7 @@
       "width": 1,
       "count": 7,
       "radius": 120,
-      "length": 16,
+      "length": 10,
       "radians": 1
     },
     "radian_circle": {
@@ -153,6 +178,19 @@
         "width": 1,
         "color": "black"
       }
+    },
+    "radian_numerals": {
+      "orient": true,
+      "radius": 100,
+      "type": "radial",
+      "content": "text",
+      "weight": 300,
+      "size": 14,
+      "count": 7,
+      "color": "#565656",
+      "family": "Oswald, Calibri, Impact, sans-serif",
+      "text": ["0rad", "1rad", "2rad", "3rad", "4rad", "5rad", "6rad"],
+      "radians": 1
     }
   }
 }
