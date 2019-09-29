@@ -121,8 +121,9 @@ class AnalogClock extends RadialGauge
         this.render();
       }
       else {
-        let curVal = Math.floor(msince / 1000) * 1000;
-        if ( curVal !== this.safeValue ) {
+        let pulse = this.theme.pulse || 1000;
+        let curVal = Math.floor(msince / pulse) * pulse;
+        if ( curVal !== this.safeValue ) { // render when second has changed
           this.safeValue = curVal;
           this.render();
         }

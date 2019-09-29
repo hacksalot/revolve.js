@@ -1,5 +1,6 @@
 {
   "name": "decimal",
+  "pulse": 864,
   "axes": {
     "HOUR10": {
       "name": "hour10",
