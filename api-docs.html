@@ -1,0 +1,101 @@
+<h3 id="methods">Methods</h3>
+
+<h4 id="revolvegauge-context-options">revolve.gauge( context[, options])</h4>
+
+<p>Render a themed gauge to the <code class="highlighter-rouge">&lt;canvas&gt;</code> element specified by the <code class="highlighter-rouge">context</code> parameter. Optionally, include an <code class="highlighter-rouge">options</code> object for the 2nd parameter.</p>
+
+<p><strong>Returns:</strong> An object of type <code class="highlighter-rouge">RadialGauge</code>.</p>
+
+<h4 id="revolveclock-context-options">revolve.clock( context[, options])</h4>
+
+<p>Render a themed clock to the <code class="highlighter-rouge">&lt;canvas&gt;</code> element specified by the <code class="highlighter-rouge">context</code> parameter. Optionally, include an <code class="highlighter-rouge">options</code> object for the 2nd parameter.</p>
+
+<p><strong>Returns:</strong> An object of type <code class="highlighter-rouge">AnalogClock</code>.</p>
+
+<h3 id="properties">Properties</h3>
+
+<h4 id="revolvethemes">revolve.themes</h4>
+
+<p>An object collection of all the predefined themes. Only available in packaged builds (<code class="highlighter-rouge">revolve.pkgd.js</code> and <code class="highlighter-rouge">revolve.pkgd.min.js</code>).</p>
+
+<h3 id="options">Options</h3>
+
+<p>Both the <code class="highlighter-rouge">gauge</code> and <code class="highlighter-rouge">clock</code> methods accept an options object for the second parameter.</p>
+
+<h4 id="optscenter">opts.center</h4>
+
+<p>Type: <code class="highlighter-rouge">Array</code> (optional)</p>
+
+<p>The [x,y] coordinate of the center of the clock or gauge. If omitted, defaults to the canvas midpoint.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">opts</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">center</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">]</span>
+<span class="p">};</span>
+<span class="nx">Revolve</span><span class="p">.</span><span class="nx">gauge</span><span class="p">(</span> <span class="nx">ctx</span><span class="p">,</span> <span class="nx">opts</span> <span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="optslayout">opts.layout</h4>
+
+<p>Type: <code class="highlighter-rouge">String</code> (optional)</p>
+
+<p>Describes the layouting behavior of the clock or gauge as the <code class="highlighter-rouge">&lt;canvas&gt;</code> element is resized. Valid values are:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">auto</code>: The clock is centered and resized to the maximum extent without overflowing the canvas.</li>
+  <li><code class="highlighter-rouge">static</code>: The size of the clock/gauge stays constant when the <code class="highlighter-rouge">&lt;canvas&gt;</code> is resized.</li>
+  <li><code class="highlighter-rouge">scale</code>: The size of the clock scales with the size of the canvas.</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">opts</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">layout</span><span class="p">:</span> <span class="dl">'</span><span class="s1">contain</span><span class="dl">'</span>
+<span class="p">};</span>
+<span class="nx">Revolve</span><span class="p">.</span><span class="nx">gauge</span><span class="p">(</span> <span class="nx">ctx</span><span class="p">,</span> <span class="nx">opts</span> <span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="optsmode">opts.mode</h4>
+
+<p>Type: <code class="highlighter-rouge">String</code> (optional)</p>
+
+<p>[Clocks only.] The animation style of the clock. Can be either <code class="highlighter-rouge">continuous</code> or <code class="highlighter-rouge">discrete</code>. Default is <code class="highlighter-rouge">discrete</code>.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">opts</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">mode</span><span class="p">:</span> <span class="dl">'</span><span class="s1">continuous</span><span class="dl">'</span>
+<span class="p">};</span>
+<span class="nx">Revolve</span><span class="p">.</span><span class="nx">clock</span><span class="p">(</span> <span class="nx">ctx</span><span class="p">,</span> <span class="nx">opts</span> <span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="optsradius">opts.radius</h4>
+
+<p>Type: <code class="highlighter-rouge">Number</code> (optional)</p>
+
+<p>The initial size of the clock or gauge. If omitted, defaults to <code class="highlighter-rouge">Math.min(w,h) / 2</code>, where <code class="highlighter-rouge">w</code> and <code class="highlighter-rouge">h</code> are the width and height of the <code class="highlighter-rouge">&lt;canvas&gt;</code> element.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">opts</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">radius</span><span class="p">:</span> <span class="mi">256</span>
+<span class="p">};</span>
+<span class="nx">Revolve</span><span class="p">.</span><span class="nx">gauge</span><span class="p">(</span> <span class="nx">ctx</span><span class="p">,</span> <span class="nx">opts</span> <span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="optstheme">opts.theme</h4>
+
+<p>Type: <code class="highlighter-rouge">String</code> or <code class="highlighter-rouge">Object</code> (optional)</p>
+
+<p>The name of a predefined Revolve.js theme OR a JavaScript/JSON theme object.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">opts</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">theme</span><span class="p">:</span> <span class="dl">'</span><span class="s1">unitless</span><span class="dl">'</span>
+<span class="p">};</span>
+<span class="nx">Revolve</span><span class="p">.</span><span class="nx">gauge</span><span class="p">(</span> <span class="nx">ctx</span><span class="p">,</span> <span class="nx">opts</span> <span class="p">);</span>
+</code></pre></div></div>
+
+<h4 id="optsvalue">opts.value</h4>
+
+<p>Type: <code class="highlighter-rouge">Number</code> or <code class="highlighter-rouge">String</code> (optional)</p>
+
+<p>The initial value of the clock or gauge.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">opts</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">value</span><span class="p">:</span> <span class="mi">100</span>
+<span class="p">};</span>
+<span class="nx">Revolve</span><span class="p">.</span><span class="nx">gauge</span><span class="p">(</span> <span class="nx">ctx</span><span class="p">,</span> <span class="nx">opts</span> <span class="p">);</span>
+</code></pre></div></div>
