@@ -31,12 +31,12 @@ Or download the `revolve.js` file directly.
 
 ### In HTML
 
-The quickest way to use revolve.js is to link to the `revolve.js` file and add a `canvas` element with the `data-revolve` attribute set to either `clock` or `gauge`.
+The quickest way to use the library is to link to the `revolve.pkgd.js` file and add a `canvas` element with the `data-revolve` attribute set to either `clock` or `gauge`.
 
 ```html
 <head>
   <!-- yada yada -->
-  <script src="js/revolve.js" type="text/javascript"></script>
+  <script src="dist/revolve.pkgd.js" type="text/javascript"></script>
   <!-- other stuff -->
 </head>
 <body>
@@ -68,6 +68,7 @@ Revolve.js ships with over a dozen predefined themes and the ability to define y
 - [`simple`](https://revolvejs.org/themes/simple)
 - [`speedometer`](https://revolvejs.org/themes/speedometer)
 - [`stopwatch`](https://revolvejs.org/themes/stopwatch)
+- [`theory`](https://revolvejs.org/themes/theory)
 - [`unitless`](https://revolvejs.org/themes/unitless)
 - [`uptown`](https://revolvejs.org/themes/uptown)
 
@@ -106,6 +107,7 @@ Every Revolve.js clock and gauge is driven by an editable JSON theme description
 
 See [CHANGELOG.md](CHANGELOG.md) for full release info.
 
+- v1.3.0 New theme (`theory`), better positioning and resizing support.
 - v1.2.0 Improve build packaging.
 - v1.1.0 Add `unitless` theme & GitHub Package support.
 - v1.0.0 Initial public release.

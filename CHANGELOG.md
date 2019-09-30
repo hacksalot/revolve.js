@@ -1,7 +1,31 @@
 Revolve.js Changelog
 ===
 
+## [Release v1.3.0][v1.3.0]
 
+### Added
+
+- Support `<canvas>` resizing via the `layout` property on the clock or gauge (not to be confused with the `layout` property on certain theme layers).
+
+- The new [`theory`](https://revolvejs.org/themes/theory) theme illustrates the relationship between degrees, minutes/seconds, hours, and radians.
+
+- Layers of type `radial` can now include a `radians` element (instead of `degrees`) to specify the angular change directly in radians.
+
+- Ability to set clock pulse rate via the `pulse` value on the theme object. The clock pulse rate is mostly used to decide how often a clock "ticks" under `discrete` animation. The default value is `1000`, which means the clock will "tick" precisely once per second.
+
+    For example, in the `decimal` clock, [the pulse is set to 864](https://github.com/hacksalot/revolve.js/blob/118e5d486777701c20b3e263f4540701b411d33d/src/themes/decimal.json#L3), causing the decimal clock to tick every 864 milliseconds or 0.864 seconds.
+
+- Ability to set a text background color for text radials. Use the `background` property to prepaint a rectangle of the indicated color before painting the text. Useful for ensuring text is painted against a solid-color background if it happens to be positioned on top of some colored pixels.
+
+- New example demonstrating a [resizing analog clock](examples/resize.html).
+
+### Fixed
+
+- Fixed inconsistent positioning via the `center` property. Setting the position of a clock or gauge via `center` should now work correctly.
+
+- Fixed incorrect timing of decimal clock's second hand. The second hand will now tick correctly once every 0.864 seconds.
+
+[v1.3.0]: https://github.com/hacksalot/revolve.js/releases/tag/v1.3.0
 
 ## [Release v1.2.0][v1.2.0]
 

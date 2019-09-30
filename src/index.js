@@ -1,7 +1,7 @@
 /**
 The Revolve.js library
-@file revolve.js
-@version 1.2.0
+@file index.js
+@version 1.3.0
 @copyright Copyright (c) 2019 | James M. Devlin | https://revolvejs.org
 */
 //------------------------------------------------------------------------------
@@ -55,8 +55,9 @@ class RadialGauge
     // Set up default options
     let defOpts = {
       logicalSize: 512,
-      label: 'Revolve.js | v1.2.0',
+      label: 'Revolve.js | v1.3.0',
       mode: 'discrete',
+      layout: 'auto',
       center: [0,0],
       radius: Math.min( ctx.canvas.width, ctx.canvas.height ) / 2.0
     };
@@ -85,11 +86,22 @@ class RadialGauge
 
   // Render the radial gauge.
   render() {
-    this.ctx.translate( this.radius / 2, this.radius / 2 );
+    if( this.ctx.canvas.width != this.ctx.canvas.clientWidth || // Note [^1]
+        this.ctx.canvas.height != this.ctx.canvas.clientHeight ) {
+      this.resize( this.ctx.canvas.clientWidth, this.ctx.canvas.clientHeight );
+    }
     let th = this.theme;
-    th.layers && Object.keys(th.layers).forEach( function(k) {
+    th.layers && Object.keys(th.layers).forEach( (k) => {
       CanvasRenderer[ th.layers[k].type ](this.ctx,this,th.layers[k]);
-    }.bind(this));
+    }, this);
+  }
+
+  resize( w, h ) {
+    this.ctx.canvas.width = w;
+    this.ctx.canvas.height = h;
+    if( this.layout === 'auto' ) {
+      this.radius = Math.min(w, h) / 2;
+    }
   }
 }
 
@@ -114,20 +126,21 @@ class AnalogClock extends RadialGauge
     if( this.timer ) return;
     this.started = _milliSinceMidnight();
     this.paused = false;
-    this.timer = setInterval( function() {
+    this.timer = setInterval( (() => {
       let msince = _milliSinceMidnight();
       if( this.mode === 'continuous' ) {
         this.safeValue = msince;
         this.render();
       }
       else {
-        let curVal = Math.floor(msince / 1000) * 1000;
-        if ( curVal !== this.safeValue ) {
+        let pulse = this.theme.pulse || 1000;
+        let curVal = Math.floor(msince / pulse) * pulse;
+        if ( curVal !== this.safeValue ) { // render when second has changed
           this.safeValue = curVal;
           this.render();
         }
       }
-    }.bind(this), this.interval || 1000/24.0);
+    }).bind(this), this.interval || 1000/24.0);
   }
 
   // Stop the clock!
@@ -254,17 +267,20 @@ class CanvasRenderer
     _resetContext(ctx,ctl,lay);
     let timeRotation = 0;
     let safeCount = _getRadialCount(lay);
-    let degreesPer = lay.degrees || (360.0 / safeCount);
+    let degreesPer = (lay.degrees || lay.radians) || (360.0 / safeCount);
     for( let n = 0; n < safeCount; n++ ) {
       if( (lay.exclude && lay.exclude.includes(n) ) ||
           (lay.include && !lay.include.includes(n) ) )
         continue;
       ctx.resetTransform();
-      ctx.translate( ctl.radius, ctl.radius );
+      ctx.translate( ctx.canvas.width / 2, ctx.canvas.height / 2 );
+      ctx.translate( ctl.center[0], ctl.center[1] );
       if( lay.orient || (lay.content !== "text") ) {
         let rotAngle = (n * degreesPer) + (lay.start || 0) + timeRotation;
-        ctx.rotate( TO_RADIANS * rotAngle );
+        let rotRadians = lay.radians ? n * lay.radians : TO_RADIANS * rotAngle;
+        ctx.rotate( rotRadians );
       }
+      ctx.translate( -ctl.center[0], -ctl.center[1] );
       if( lay.content === 'text' ) _drawRadialText(n,ctx,ctl,lay);
       else if( lay.content === 'ticks' ) _drawRadialTick(n,ctx,ctl,lay);
       else if( lay.content === 'arcs' ) CanvasRenderer.arc(ctx,ctl,lay,true);
@@ -302,7 +318,9 @@ class CanvasRenderer
     let axName = lay.axis.trim().toUpperCase();
     let ax = (ctl.axes && ctl.axes[ axName ]) || STD_AXES[ axName ];
     let finVal = ( lay.relative ) ? ctl.safeValue - ctl.started : ctl.safeValue;
+    ctx.translate( ctl.center[0], ctl.center[1] );
     ctx.rotate( TO_RADIANS * ax.toAngle( finVal ) );
+    ctx.translate( -ctl.center[0], -ctl.center[1] );
 
     if( Array.isArray( lay.layers ) ) {
       lay.layers.forEach( el => { this[el.type](ctx,ctl,el); }, CanvasRenderer);
@@ -374,7 +392,7 @@ function _loadThemeJSON( themeName, callback ) {
 
 function _resetContext( ctx, ctl, lay ) {
   ctx.resetTransform();
-  ctx.translate( ctl.radius, ctl.radius );
+  ctx.translate( ctx.canvas.width / 2, ctx.canvas.height / 2 );
   ctx.beginPath();
   if( lay.color ) {
     ctx.fillStyle = ctx.strokeStyle = _colorToFill( lay.color, ctx, ctl );
@@ -434,6 +452,13 @@ function _drawRadialText(n,c,o,l) {
   let p = _numeralPosition( n, o, l );
   let txt = fnText(n, l);
   let metrics = c.measureText( txt );
+  if( l.background ) {
+    c.fillStyle = l.background;
+    c.fillRect( p[0] - (metrics.width/2),
+                (p[1] + _p(l.size / 3, o)) - _p(l.size, o),
+                metrics.width, _p(l.size + 2, o) );
+    c.fillStyle = l.color;
+  }
   c.fillText( txt, p[0] - (metrics.width/2), p[1] + _p(l.size / 3, o));
 }
 
@@ -613,3 +638,18 @@ function extend() {
 
 return REVOLVE; // Return the module object
 }));
+
+// [1] Check if the size of the <canvas> has changed before rendering. If it has
+// changed, make sure the internal canvas image dims are set to the new value.
+// https://stackoverflow.com/q/2588181
+//
+// Note:
+//
+//    - this.ctx.canvas.width contains the canvas width as defined at creation
+//      time. This will either be the value of the "width" property on the
+//      <canvas> element, or 300 if no width is specified.
+//
+//    - WHEN THE CANVAS IS STRETCHED, this.ctx.canvas.width|height are NOT
+//      updated even though the size of the canvas WINDOW *IS*. This leads to
+//      stretching of the canvas image.
+//
